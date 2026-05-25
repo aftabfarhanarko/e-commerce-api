@@ -54,8 +54,8 @@ export class AddPaidFields1775562076955 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "tbl_products" ALTER COLUMN "status" SET DEFAULT 'published'`);
         await queryRunner.query(`DROP TYPE "public"."tbl_products_status_enum_old"`);
         await queryRunner.query(`ALTER TABLE "orders" ADD CONSTRAINT "FK_e5de51ca888d8b1f5ac25799dd1" FOREIGN KEY ("customerId") REFERENCES "tbl_users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "system_users" ADD IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT '0'`);
-        await queryRunner.query(`ALTER TABLE "system_users" ADD IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT '0'`);
+        await queryRunner.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT '0'`);
+        await queryRunner.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT '0'`);
 
         queryRunner.query = originalQuery;
     }
