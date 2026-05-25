@@ -14,6 +14,8 @@ export class Package {
   @Column('text')
   description: string;
 
+  // XXGFSDG
+
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
@@ -45,4 +47,3 @@ export class Package {
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 }
-  
