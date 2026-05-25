@@ -2,6 +2,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class AddPaidFields1775562076955 implements MigrationInterface {
     name = 'AddPaidFields1775562076955'
+    public transaction = false;
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         const originalQuery = queryRunner.query.bind(queryRunner);

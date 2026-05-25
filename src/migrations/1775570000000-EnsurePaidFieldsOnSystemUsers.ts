@@ -4,6 +4,7 @@ export class EnsurePaidFieldsOnSystemUsers1775570000000
   implements MigrationInterface
 {
   name = 'EnsurePaidFieldsOnSystemUsers1775570000000';
+  public transaction = false;
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(

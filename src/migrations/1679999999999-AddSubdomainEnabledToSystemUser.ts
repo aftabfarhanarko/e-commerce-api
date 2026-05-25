@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddSubdomainEnabledToSystemUser1679999999999 implements MigrationInterface {
+  public transaction = false;
   public async up(queryRunner: QueryRunner): Promise<void> {
     try {
       await queryRunner.query(`

@@ -4,6 +4,7 @@ exports.AddPaidFields1775562076955 = void 0;
 class AddPaidFields1775562076955 {
     constructor() {
         this.name = 'AddPaidFields1775562076955';
+        this.transaction = false;
     }
     async up(queryRunner) {
         const originalQuery = queryRunner.query.bind(queryRunner);
