@@ -30,7 +30,7 @@ import { PrivecyPolicyModule } from './privecy-policy/privecy-policy.module';
 import { TremsCondetionsModule } from './trems-condetions/trems-condetions.module';
 import { RefundPolicyModule } from './refund-policy/refund-policy.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { DebugController } from './debug.controller';
+import { MigrationController } from './migration.controller';
 import { HealthModule } from './health/health.module';
 import { TrackingModule } from './tracking/tracking.module';
 import { PackageModule } from './package/package.module';
@@ -111,7 +111,7 @@ import { VoiceModule } from './voice/voice.module';
     VoiceModule,
   ],
 
-  controllers: [AppController, DebugController],
+  controllers: [AppController, MigrationController],
 
   providers: [
     AppService,
