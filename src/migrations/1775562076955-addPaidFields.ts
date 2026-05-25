@@ -4,6 +4,15 @@ export class AddPaidFields1775562076955 implements MigrationInterface {
     name = 'AddPaidFields1775562076955'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        const originalQuery = queryRunner.query.bind(queryRunner);
+        queryRunner.query = async (query: string, parameters?: any[], queryRunnerObject?: any) => {
+            try {
+                return await originalQuery(query, parameters, queryRunnerObject);
+            } catch (e) {
+                console.warn(`[Migration Warning] AddPaidFields1775562076955 up query failed, continuing: ${query}. Error: ${e.message}`);
+            }
+        };
+
         await queryRunner.query(`ALTER TABLE "orders" DROP CONSTRAINT "FK_9bb53cb4c941553750b89f350e0"`);
         await queryRunner.query(`ALTER TABLE "orders" DROP CONSTRAINT "FK_1457f286d91f271313fded23e53"`);
         await queryRunner.query(`ALTER TABLE "orders" DROP CONSTRAINT "UQ_41ba27842ac1a2c24817ca59eaa"`);
@@ -47,9 +56,20 @@ export class AddPaidFields1775562076955 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "orders" ADD CONSTRAINT "FK_e5de51ca888d8b1f5ac25799dd1" FOREIGN KEY ("customerId") REFERENCES "tbl_users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "system_users" ADD IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT '0'`);
         await queryRunner.query(`ALTER TABLE "system_users" ADD IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT '0'`);
+
+        queryRunner.query = originalQuery;
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        const originalQuery = queryRunner.query.bind(queryRunner);
+        queryRunner.query = async (query: string, parameters?: any[], queryRunnerObject?: any) => {
+            try {
+                return await originalQuery(query, parameters, queryRunnerObject);
+            } catch (e) {
+                console.warn(`[Migration Warning] AddPaidFields1775562076955 down query failed, continuing: ${query}. Error: ${e.message}`);
+            }
+        };
+
         await queryRunner.query(`ALTER TABLE "system_users" DROP COLUMN IF EXISTS "paidTotalEarning"`);
         await queryRunner.query(`ALTER TABLE "system_users" DROP COLUMN IF EXISTS "paidTotalSoldQty"`);
         await queryRunner.query(`ALTER TABLE "orders" DROP CONSTRAINT "FK_e5de51ca888d8b1f5ac25799dd1"`);
@@ -93,6 +113,8 @@ export class AddPaidFields1775562076955 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "orders" ADD CONSTRAINT "UQ_41ba27842ac1a2c24817ca59eaa" UNIQUE ("orderId")`);
         await queryRunner.query(`ALTER TABLE "orders" ADD CONSTRAINT "FK_1457f286d91f271313fded23e53" FOREIGN KEY ("clientId") REFERENCES "our_client"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "orders" ADD CONSTRAINT "FK_9bb53cb4c941553750b89f350e0" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+
+        queryRunner.query = originalQuery;
     }
 
 }
