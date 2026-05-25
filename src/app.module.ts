@@ -60,7 +60,8 @@ import { VoiceModule } from './voice/voice.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: false,
+
       logging: false,
       ssl: {
         rejectUnauthorized: false,
@@ -148,9 +149,9 @@ import { VoiceModule } from './voice/voice.module';
             // Priority: DB settings (set from frontend) -> env fallback
             let setting:
               | {
-                  smtpUser?: string;
-                  smtpPass?: string;
-                }
+                smtpUser?: string;
+                smtpPass?: string;
+              }
               | undefined;
 
             try {
@@ -206,4 +207,4 @@ import { VoiceModule } from './voice/voice.module';
 
   exports: ['MAILER_TRANSPORT'],
 })
-export class AppModule {}
+export class AppModule { }
