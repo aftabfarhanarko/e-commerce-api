@@ -4,6 +4,7 @@ exports.EnsurePaidFieldsOnSystemUsers1775570000000 = void 0;
 class EnsurePaidFieldsOnSystemUsers1775570000000 {
     constructor() {
         this.name = 'EnsurePaidFieldsOnSystemUsers1775570000000';
+        this.transaction = false;
     }
     async up(queryRunner) {
         await queryRunner.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT 0`);

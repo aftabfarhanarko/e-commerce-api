@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddSubdomainEnabledToSystemUser1679999999999 = void 0;
 class AddSubdomainEnabledToSystemUser1679999999999 {
+    constructor() {
+        this.transaction = false;
+    }
     async up(queryRunner) {
         try {
             await queryRunner.query(`

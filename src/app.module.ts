@@ -85,6 +85,7 @@ import { EnsurePaidFieldsOnSystemUsers1775570000000 } from './migrations/1775570
         EnsurePaidFieldsOnSystemUsers1775570000000,
       ],
       migrationsRun: true,
+      migrationsTransactionMode: 'each',
     }),
 
     TypeOrmModule.forFeature([SystemUser]),

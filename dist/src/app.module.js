@@ -89,6 +89,7 @@ exports.AppModule = AppModule = __decorate([
                     _1775570000000_EnsurePaidFieldsOnSystemUsers_1.EnsurePaidFieldsOnSystemUsers1775570000000,
                 ],
                 migrationsRun: true,
+                migrationsTransactionMode: 'each',
             }),
             typeorm_1.TypeOrmModule.forFeature([systemuser_entity_1.SystemUser]),
             schedule_1.ScheduleModule.forRoot(),
