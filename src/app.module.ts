@@ -60,7 +60,7 @@ import { VoiceModule } from './voice/voice.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
       logging: false,
       ssl: {
         rejectUnauthorized: false,
