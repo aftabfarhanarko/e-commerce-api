@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, NotFoundException, Inject } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, Inject, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CreateSystemuserDto } from './dto/create-systemuser.dto';
 import { UpdateSystemuserDto } from './dto/update-systemuser.dto';
@@ -21,7 +21,7 @@ import { ActivityAction, ActivityEntity } from './entities/activity-log.entity';
 import type { CustomDomainStatus } from './custom-domain-status.enum';
 
 @Injectable()
-export class SystemuserService {
+export class SystemuserService implements OnModuleInit {
   constructor(
     @InjectRepository(SystemUser)
     private readonly systemUserRepo: Repository<SystemUser>,
@@ -34,6 +34,15 @@ export class SystemuserService {
     @Inject('MAILER_TRANSPORT')
     private readonly mailer: { sendMail: (message: any) => Promise<{ id?: string }> },
   ) { }
+
+  async onModuleInit() {
+    try {
+      await this.ensurePaidColumnsExist();
+      console.log('✅ SystemUser missing paid columns check/fix executed successfully.');
+    } catch (error) {
+      console.error('❌ Failed to execute system user paid columns ensure check:', error);
+    }
+  }
 
   /**
    * Helper for other modules (e.g. Orders) to resolve a tenant/company

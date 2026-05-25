@@ -1,3 +1,4 @@
+import { OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CreateSystemuserDto } from './dto/create-systemuser.dto';
 import { UpdateSystemuserDto } from './dto/update-systemuser.dto';
@@ -12,7 +13,7 @@ import { CompanyIdService } from '../common/services/company-id.service';
 import { SystemUserRole } from './system-user-role.enum';
 import { ActivityLogService } from './activity-log.service';
 import type { CustomDomainStatus } from './custom-domain-status.enum';
-export declare class SystemuserService {
+export declare class SystemuserService implements OnModuleInit {
     private readonly systemUserRepo;
     private readonly packageRepo;
     private readonly jwtService;
@@ -25,8 +26,11 @@ export declare class SystemuserService {
             id?: string;
         }>;
     });
+    onModuleInit(): Promise<void>;
     findOneByCompanyId(companyId: string): Promise<SystemUser | null>;
     private hashPassword;
+    private isMissingPaidColumnsError;
+    private ensurePaidColumnsExist;
     private sendUpdateEmail;
     private notifyAdminNewReseller;
     private sendWelcomeEmail;

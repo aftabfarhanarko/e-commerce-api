@@ -37,6 +37,15 @@ let SystemuserService = class SystemuserService {
         this.configService = configService;
         this.mailer = mailer;
     }
+    async onModuleInit() {
+        try {
+            await this.ensurePaidColumnsExist();
+            console.log('✅ SystemUser missing paid columns check/fix executed successfully.');
+        }
+        catch (error) {
+            console.error('❌ Failed to execute system user paid columns ensure check:', error);
+        }
+    }
     async findOneByCompanyId(companyId) {
         if (!companyId) {
             return null;
@@ -48,6 +57,17 @@ let SystemuserService = class SystemuserService {
     }
     hashPassword(password, salt) {
         return crypto.createHmac('sha256', salt).update(password).digest('hex');
+    }
+    isMissingPaidColumnsError(error) {
+        const err = error;
+        if (err?.code !== '42703')
+            return false;
+        const msg = (err?.message || '').toLowerCase();
+        return msg.includes('paidtotalsoldqty') || msg.includes('paidtotalearning');
+    }
+    async ensurePaidColumnsExist() {
+        await this.systemUserRepo.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT 0`);
+        await this.systemUserRepo.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT 0`);
     }
     async sendUpdateEmail(user, newPassword) {
         try {
@@ -379,11 +399,25 @@ let SystemuserService = class SystemuserService {
     }
     async findAll(companyId) {
         const whereCondition = companyId ? { companyId } : {};
-        const list = await this.systemUserRepo.find({
-            where: whereCondition,
-            order: { id: 'DESC' },
-            relations: ['package', 'theme', 'invoices'],
-        });
+        let list;
+        try {
+            list = await this.systemUserRepo.find({
+                where: whereCondition,
+                order: { id: 'DESC' },
+                relations: ['package', 'theme', 'invoices'],
+            });
+        }
+        catch (error) {
+            if (!this.isMissingPaidColumnsError(error)) {
+                throw error;
+            }
+            await this.ensurePaidColumnsExist();
+            list = await this.systemUserRepo.find({
+                where: whereCondition,
+                order: { id: 'DESC' },
+                relations: ['package', 'theme', 'invoices'],
+            });
+        }
         return list.map(({ passwordHash, passwordSalt, ...safe }) => safe);
     }
     async findOne(id, companyId) {

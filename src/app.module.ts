@@ -45,6 +45,14 @@ import { CashModule } from './cash/cash.module';
 import { TopProductsModule } from './top-products/top-products.module';
 import { VoiceModule } from './voice/voice.module';
 
+// Static migrations for Vercel/lambda deployment compatibility
+import { AddSubdomainEnabledToSystemUser1679999999999 } from './migrations/1679999999999-AddSubdomainEnabledToSystemUser';
+import { CustomDomainAutoVerification1739180000000 } from './migrations/1739180000000-CustomDomainAutoVerification';
+import { AddPendingStatusToProducts1744000000000 } from './migrations/1744000000000-AddPendingStatusToProducts';
+import { FixUserEmailUniqueConstraint1771259405000 } from './migrations/1771259405000-FixUserEmailUniqueConstraint';
+import { AddPaidFields1775562076955 } from './migrations/1775562076955-addPaidFields';
+import { EnsurePaidFieldsOnSystemUsers1775570000000 } from './migrations/1775570000000-EnsurePaidFieldsOnSystemUsers';
+
 @Global()
 @Module({
   imports: [
@@ -68,7 +76,14 @@ import { VoiceModule } from './voice/voice.module';
         rejectUnauthorized: false,
       },
       autoLoadEntities: true,
-      migrations: [__dirname + '/migrations/*.{ts,js}'],
+      migrations: [
+        AddSubdomainEnabledToSystemUser1679999999999,
+        CustomDomainAutoVerification1739180000000,
+        AddPendingStatusToProducts1744000000000,
+        FixUserEmailUniqueConstraint1771259405000,
+        AddPaidFields1775562076955,
+        EnsurePaidFieldsOnSystemUsers1775570000000,
+      ],
       migrationsRun: true,
     }),
 

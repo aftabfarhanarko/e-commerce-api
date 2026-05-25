@@ -37,6 +37,7 @@ const privecy_policy_module_1 = require("./privecy-policy/privecy-policy.module"
 const trems_condetions_module_1 = require("./trems-condetions/trems-condetions.module");
 const refund_policy_module_1 = require("./refund-policy/refund-policy.module");
 const reviews_module_1 = require("./reviews/reviews.module");
+const migration_controller_1 = require("./migration.controller");
 const health_module_1 = require("./health/health.module");
 const tracking_module_1 = require("./tracking/tracking.module");
 const package_module_1 = require("./package/package.module");
@@ -50,8 +51,12 @@ const reseller_module_1 = require("./reseller/reseller.module");
 const cash_module_1 = require("./cash/cash.module");
 const top_products_module_1 = require("./top-products/top-products.module");
 const voice_module_1 = require("./voice/voice.module");
-const databaseUrl = process.env.DATABASE_URL || '';
-const useStrictSsl = /sslmode=(require|verify-ca|verify-full)/i.test(databaseUrl);
+const _1679999999999_AddSubdomainEnabledToSystemUser_1 = require("./migrations/1679999999999-AddSubdomainEnabledToSystemUser");
+const _1739180000000_CustomDomainAutoVerification_1 = require("./migrations/1739180000000-CustomDomainAutoVerification");
+const _1744000000000_AddPendingStatusToProducts_1 = require("./migrations/1744000000000-AddPendingStatusToProducts");
+const _1771259405000_FixUserEmailUniqueConstraint_1 = require("./migrations/1771259405000-FixUserEmailUniqueConstraint");
+const _1775562076955_addPaidFields_1 = require("./migrations/1775562076955-addPaidFields");
+const _1775570000000_EnsurePaidFieldsOnSystemUsers_1 = require("./migrations/1775570000000-EnsurePaidFieldsOnSystemUsers");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -68,12 +73,21 @@ exports.AppModule = AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                url: databaseUrl,
+                url: process.env.DATABASE_URL,
                 synchronize: false,
                 logging: false,
-                ssl: useStrictSsl ? { rejectUnauthorized: true } : false,
+                ssl: {
+                    rejectUnauthorized: false,
+                },
                 autoLoadEntities: true,
-                migrations: [__dirname + '/migrations/*.{ts,js}'],
+                migrations: [
+                    _1679999999999_AddSubdomainEnabledToSystemUser_1.AddSubdomainEnabledToSystemUser1679999999999,
+                    _1739180000000_CustomDomainAutoVerification_1.CustomDomainAutoVerification1739180000000,
+                    _1744000000000_AddPendingStatusToProducts_1.AddPendingStatusToProducts1744000000000,
+                    _1771259405000_FixUserEmailUniqueConstraint_1.FixUserEmailUniqueConstraint1771259405000,
+                    _1775562076955_addPaidFields_1.AddPaidFields1775562076955,
+                    _1775570000000_EnsurePaidFieldsOnSystemUsers_1.EnsurePaidFieldsOnSystemUsers1775570000000,
+                ],
                 migrationsRun: true,
             }),
             typeorm_1.TypeOrmModule.forFeature([systemuser_entity_1.SystemUser]),
@@ -112,7 +126,7 @@ exports.AppModule = AppModule = __decorate([
             cash_module_1.CashModule,
             voice_module_1.VoiceModule,
         ],
-        controllers: [app_controller_1.AppController],
+        controllers: [app_controller_1.AppController, migration_controller_1.MigrationController],
         providers: [
             app_service_1.AppService,
             {
