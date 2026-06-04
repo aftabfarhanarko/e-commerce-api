@@ -202,11 +202,11 @@ export class ProductService {
         ...product,
         reseller: raw.reseller_id
           ? {
-              id: raw.reseller_id,
-              name: raw.reseller_name,
-              email: raw.reseller_email,
-              photo: raw.reseller_photo,
-            }
+            id: raw.reseller_id,
+            name: raw.reseller_name,
+            email: raw.reseller_email,
+            photo: raw.reseller_photo,
+          }
           : null,
       };
     });
@@ -848,12 +848,12 @@ export class ProductService {
         ...product,
         reseller: raw.reseller_name
           ? {
-              id: raw.reseller_id,
-              name: raw.reseller_name,
-              email: raw.reseller_email,
-              phone: raw.reseller_phone,
-              photo: raw.reseller_photo,
-            }
+            id: raw.reseller_id,
+            name: raw.reseller_name,
+            email: raw.reseller_email,
+            phone: raw.reseller_phone,
+            photo: raw.reseller_photo,
+          }
           : null,
       };
     });
