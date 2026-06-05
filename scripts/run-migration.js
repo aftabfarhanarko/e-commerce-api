@@ -34,7 +34,6 @@ if (!url) {
   console.error('DATABASE_URL not set. Add it to .env or environment.');
   process.exit(1);
 }
-
 const sql = fs.readFileSync(sqlPath, 'utf8');
 
 async function run() {
