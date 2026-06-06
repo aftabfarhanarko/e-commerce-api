@@ -182,7 +182,7 @@ export class SystemUser {
   @Column({ type: 'int', default: 0, nullable: true })
   paidTotalSoldQty: number;
 
-  @Column('decimal', { precision: 12, scale: 2, default: 0, nullable: true })
+  @Column({ type: 'float', default: 0 })
   paidTotalEarning: number;
 
   @CreateDateColumn()
