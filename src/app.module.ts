@@ -52,7 +52,6 @@ import { AddPendingStatusToProducts1744000000000 } from './migrations/1744000000
 import { FixUserEmailUniqueConstraint1771259405000 } from './migrations/1771259405000-FixUserEmailUniqueConstraint';
 import { AddPaidFields1775562076955 } from './migrations/1775562076955-addPaidFields';
 import { EnsurePaidFieldsOnSystemUsers1775570000000 } from './migrations/1775570000000-EnsurePaidFieldsOnSystemUsers';
-import { AddTypesToProducts1775580000000 } from './migrations/1775580000000-AddTypesToProducts';
 
 @Global()
 @Module({
@@ -84,7 +83,6 @@ import { AddTypesToProducts1775580000000 } from './migrations/1775580000000-AddT
         FixUserEmailUniqueConstraint1771259405000,
         AddPaidFields1775562076955,
         EnsurePaidFieldsOnSystemUsers1775570000000,
-        AddTypesToProducts1775580000000,
       ],
       migrationsRun: true,
       migrationsTransactionMode: 'each',

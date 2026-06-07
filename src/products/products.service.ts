@@ -96,7 +96,6 @@ export class ProductService {
         // Variants & shipping
         sizes: createDto.sizes,
         variants: createDto.variants,
-        types: createDto.types,
         weight: createDto.weight,
         length: createDto.length,
         breadth: createDto.breadth,
@@ -563,7 +562,6 @@ export class ProductService {
     // Variants & shipping
     if (updateDto.sizes !== undefined) product.sizes = updateDto.sizes;
     if (updateDto.variants !== undefined) product.variants = updateDto.variants;
-    if (updateDto.types !== undefined) product.types = updateDto.types;
     if (updateDto.weight !== undefined) product.weight = updateDto.weight;
     if (updateDto.length !== undefined) product.length = updateDto.length;
     if (updateDto.breadth !== undefined) product.breadth = updateDto.breadth;

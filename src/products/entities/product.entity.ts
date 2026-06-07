@@ -70,9 +70,6 @@ export class ProductEntity {
   @Column({ type: 'simple-json', nullable: true })
   variants?: { name: string }[];
 
-  // Product types (e.g. ["tshirt", "shirt"])
-  @Column({ type: 'simple-json', nullable: true })
-  types?: string[];
 
   // Shipping dimensions
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
