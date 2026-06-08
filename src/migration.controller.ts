@@ -18,7 +18,7 @@ export class MigrationController {
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "breadth" numeric(10,2)');
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "width" numeric(10,2)');
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "unit" character varying DEFAULT \'Piece\'');
-      await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "variantId" text');
+
       await this.dataSource.runMigrations();
       return { success: true, message: "Migrations run successfully on Vercel!" };
     } catch (e) {
