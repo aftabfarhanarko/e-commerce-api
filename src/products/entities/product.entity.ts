@@ -94,7 +94,6 @@ export class ProductEntity {
   resellerId?: number;
 
 
-
   @ManyToOne(() => CategoryEntity, { nullable: false })
   category: CategoryEntity;
 
