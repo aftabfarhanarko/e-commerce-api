@@ -48,7 +48,7 @@ export class ResellerService {
         ? Number(reseller.resellerCommissionRate)
         : 0;
 
-    const totalSoldQty = Math.max(Number(salesAgg?.totalSoldQty ?? 0) - Number(reseller?.paidTotalSoldQty ?? 0), 0);
+    const totalSoldQty = Math.max(Number(salesAgg?.totalSoldQty ?? 0), 0);
     const totalRevenue = Math.max(Number(salesAgg?.totalRevenue ?? 0) - Number(reseller?.paidTotalEarning ?? 0), 0);
 
     // Admin takes commissionRate% from reseller's total revenue
@@ -382,7 +382,6 @@ export class ResellerService {
     await this.systemUserRepo.update(
       { id: saved.resellerId },
       { 
-        paidTotalSoldQty: Number(salesAgg?.totalSoldQty ?? 0), 
         paidTotalEarning: Number(salesAgg?.totalRevenue ?? 0) 
       }
     );

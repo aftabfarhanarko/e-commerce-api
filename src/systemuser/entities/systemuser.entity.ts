@@ -179,8 +179,6 @@ export class SystemUser {
   @Column('decimal', { precision: 5, scale: 2, nullable: true })
   resellerCommissionRate?: number | null;
 
-  @Column({ type: 'int', default: 0, nullable: true })
-  paidTotalSoldQty: number;
 
   @Column({ type: 'float', default: 0 })
   paidTotalEarning: number;

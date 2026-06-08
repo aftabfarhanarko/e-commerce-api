@@ -8,7 +8,6 @@ export class MigrationController {
   @Get()
   async runMigrations() {
     try {
-      await this.dataSource.query('ALTER TABLE system_users ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT 0');
       await this.dataSource.query('ALTER TABLE system_users ADD COLUMN IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT 0');
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "sizes" text');
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "variants" text');

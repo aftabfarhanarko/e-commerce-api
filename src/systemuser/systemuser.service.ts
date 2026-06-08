@@ -67,13 +67,10 @@ export class SystemuserService implements OnModuleInit {
     const err = error as { code?: string; message?: string };
     if (err?.code !== '42703') return false;
     const msg = (err?.message || '').toLowerCase();
-    return msg.includes('paidtotalsoldqty') || msg.includes('paidtotalearning');
+    return msg.includes('paidtotalearning');
   }
 
   private async ensurePaidColumnsExist(): Promise<void> {
-    await this.systemUserRepo.query(
-      `ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT 0`,
-    );
     await this.systemUserRepo.query(
       `ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT 0`,
     );
