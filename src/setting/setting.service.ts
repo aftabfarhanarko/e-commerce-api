@@ -123,4 +123,12 @@ export class SettingService {
     });
     return entity?.orderReceiptUrl ?? null;
   }
+
+  async getFraudCheckerApiKey(companyId: string): Promise<string | null> {
+    const entity = await this.settingRepo.findOne({
+      where: { companyId },
+      order: { id: 'ASC' },
+    });
+    return entity?.fraudCheckerApiKey ?? null;
+  }
 }
