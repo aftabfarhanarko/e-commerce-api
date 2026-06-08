@@ -19,6 +19,10 @@ export class MigrationController {
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "width" numeric(10,2)');
       await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "unit" character varying DEFAULT \'Piece\'');
       await this.dataSource.query('ALTER TABLE tbl_settings ADD COLUMN IF NOT EXISTS "fraudCheckerApiKey" text');
+      
+      // Fix auto-increment sequence for system_users table
+      await this.dataSource.query(`SELECT setval(pg_get_serial_sequence('system_users', 'id'), coalesce(max(id)+1, 1), false) FROM system_users;`);
+      
       await this.dataSource.runMigrations();
       return { success: true, message: "Migrations run successfully on Vercel!" };
     } catch (e) {
