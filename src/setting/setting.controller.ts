@@ -6,7 +6,6 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { CompanyIdGuard } from '../common/guards/company-id.guard';
 import { RequestContextService } from '../common/services/request-context.service';
 import { UpdateSmtpDto } from './dto/update-smtp.dto';
-import { UpdateFraudCheckerDto } from './dto/update-fraud-checker.dto';
 import { UpdateOrderReceiptUrlDto } from './dto/update-order-receipt-url.dto';
 
 @Controller('setting')
@@ -36,19 +35,6 @@ export class SettingController {
     return { status: 'success', message: 'SMTP updated successfully', data };
   }
 
-  @Patch('fraud-checker-api')
-  async upsertFraudCheckerApi(@Body() dto: UpdateFraudCheckerDto) {
-    const companyId = this.requestContext.getCompanyId();
-    const data = await this.settingService.upsertFraudCheckerApiKey(companyId, dto);
-    return { status: 'success', message: 'Fraud Checker API key updated successfully', data };
-  }
-
-  @Get('fraud-checker-api')
-  async getFraudCheckerApi() {
-    const companyId = this.requestContext.getCompanyId();
-    const key = await this.settingService.getFraudCheckerApiKey(companyId);
-    return { status: 'success', data: { fraudCheckerApiKey: key } };
-  }
 
   @Patch('order-receipt-url')
   async upsertOrderReceiptUrl(@Body() dto: UpdateOrderReceiptUrlDto) {

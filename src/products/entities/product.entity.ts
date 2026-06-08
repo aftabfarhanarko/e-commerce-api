@@ -93,10 +93,6 @@ export class ProductEntity {
   @Column({ nullable: true })
   resellerId?: number;
 
-  @Column({ type: 'simple-json', nullable: true })
-  variantId?: [];
-  
-
 
 
   @ManyToOne(() => CategoryEntity, { nullable: false })

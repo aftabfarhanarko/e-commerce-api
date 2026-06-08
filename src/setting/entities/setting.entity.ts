@@ -43,9 +43,6 @@ export class Setting {
   @Column({ nullable: true })
   smtpFrom?: string;
 
-  // Fraud Checker API key
-  @Column({ nullable: true, length: 500 })
-  fraudCheckerApiKey?: string;
 
   // Order Payment Slip / App Sticker URL
   @Column({ nullable: true, length: 500 })
