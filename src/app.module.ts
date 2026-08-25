@@ -69,7 +69,7 @@ import { EnsurePaidFieldsOnSystemUsers1775570000000 } from './migrations/1775570
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      synchronize: false,
+      synchronize: true,
 
       logging: false,
       ssl: {
@@ -84,7 +84,7 @@ import { EnsurePaidFieldsOnSystemUsers1775570000000 } from './migrations/1775570
         AddPaidFields1775562076955,
         EnsurePaidFieldsOnSystemUsers1775570000000,
       ],
-      migrationsRun: true,
+      migrationsRun: false,
       migrationsTransactionMode: 'each',
     }),
 
