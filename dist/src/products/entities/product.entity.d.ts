@@ -27,7 +27,6 @@ export declare class ProductEntity {
     variants?: {
         name: string;
     }[];
-    types?: string[];
     weight?: number;
     length?: number;
     breadth?: number;
@@ -35,7 +34,6 @@ export declare class ProductEntity {
     unit?: string;
     companyId: string;
     resellerId?: number;
-    variantId?: [];
     category: CategoryEntity;
     createdAt: Date;
     updatedAt: Date;

@@ -18,7 +18,6 @@ let MigrationController = class MigrationController {
     }
     async runMigrations() {
         try {
-            await this.dataSource.query('ALTER TABLE system_users ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT 0');
             await this.dataSource.query('ALTER TABLE system_users ADD COLUMN IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT 0');
             await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "sizes" text');
             await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "variants" text');
@@ -28,7 +27,8 @@ let MigrationController = class MigrationController {
             await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "breadth" numeric(10,2)');
             await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "width" numeric(10,2)');
             await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "unit" character varying DEFAULT \'Piece\'');
-            await this.dataSource.query('ALTER TABLE tbl_products ADD COLUMN IF NOT EXISTS "variantId" text');
+            await this.dataSource.query('ALTER TABLE tbl_settings ADD COLUMN IF NOT EXISTS "fraudCheckerApiKey" text');
+            await this.dataSource.query(`SELECT setval(pg_get_serial_sequence('system_users', 'id'), coalesce(max(id)+1, 1), false) FROM system_users;`);
             await this.dataSource.runMigrations();
             return { success: true, message: "Migrations run successfully on Vercel!" };
         }

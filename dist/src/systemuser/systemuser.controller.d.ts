@@ -74,7 +74,6 @@ export declare class SystemuserController {
         permissions: string[];
         role: SystemUserRole;
         resellerCommissionRate?: number | null;
-        paidTotalSoldQty: number;
         paidTotalEarning: number;
         createdAt: Date;
         updatedAt: Date;

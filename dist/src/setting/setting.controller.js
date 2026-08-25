@@ -21,7 +21,6 @@ const jwt_auth_guard_1 = require("../common/guards/jwt-auth.guard");
 const company_id_guard_1 = require("../common/guards/company-id.guard");
 const request_context_service_1 = require("../common/services/request-context.service");
 const update_smtp_dto_1 = require("./dto/update-smtp.dto");
-const update_fraud_checker_dto_1 = require("./dto/update-fraud-checker.dto");
 const update_order_receipt_url_dto_1 = require("./dto/update-order-receipt-url.dto");
 let SettingController = class SettingController {
     constructor(settingService, requestContext) {
@@ -40,16 +39,6 @@ let SettingController = class SettingController {
         const companyId = this.requestContext.getCompanyId();
         const data = await this.settingService.upsertSmtp(companyId, dto);
         return { status: 'success', message: 'SMTP updated successfully', data };
-    }
-    async upsertFraudCheckerApi(dto) {
-        const companyId = this.requestContext.getCompanyId();
-        const data = await this.settingService.upsertFraudCheckerApiKey(companyId, dto);
-        return { status: 'success', message: 'Fraud Checker API key updated successfully', data };
-    }
-    async getFraudCheckerApi() {
-        const companyId = this.requestContext.getCompanyId();
-        const key = await this.settingService.getFraudCheckerApiKey(companyId);
-        return { status: 'success', data: { fraudCheckerApiKey: key } };
     }
     async upsertOrderReceiptUrl(dto) {
         const companyId = this.requestContext.getCompanyId();
@@ -95,19 +84,6 @@ __decorate([
     __metadata("design:paramtypes", [update_smtp_dto_1.UpdateSmtpDto]),
     __metadata("design:returntype", Promise)
 ], SettingController.prototype, "upsertSmtp", null);
-__decorate([
-    (0, common_1.Patch)('fraud-checker-api'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_fraud_checker_dto_1.UpdateFraudCheckerDto]),
-    __metadata("design:returntype", Promise)
-], SettingController.prototype, "upsertFraudCheckerApi", null);
-__decorate([
-    (0, common_1.Get)('fraud-checker-api'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], SettingController.prototype, "getFraudCheckerApi", null);
 __decorate([
     (0, common_1.Patch)('order-receipt-url'),
     __param(0, (0, common_1.Body)()),

@@ -63,10 +63,9 @@ let SystemuserService = class SystemuserService {
         if (err?.code !== '42703')
             return false;
         const msg = (err?.message || '').toLowerCase();
-        return msg.includes('paidtotalsoldqty') || msg.includes('paidtotalearning');
+        return msg.includes('paidtotalearning');
     }
     async ensurePaidColumnsExist() {
-        await this.systemUserRepo.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalSoldQty" integer NOT NULL DEFAULT 0`);
         await this.systemUserRepo.query(`ALTER TABLE "system_users" ADD COLUMN IF NOT EXISTS "paidTotalEarning" numeric(12,2) NOT NULL DEFAULT 0`);
     }
     async sendUpdateEmail(user, newPassword) {

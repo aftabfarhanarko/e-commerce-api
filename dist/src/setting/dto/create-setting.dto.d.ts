@@ -6,6 +6,5 @@ export declare class CreateSettingDto {
     location?: string;
     smtpUser?: string;
     smtpPass?: string;
-    fraudCheckerApiKey?: string;
     orderReceiptUrl?: string;
 }

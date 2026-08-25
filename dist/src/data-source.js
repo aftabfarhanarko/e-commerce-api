@@ -17,5 +17,6 @@ exports.AppDataSource = new typeorm_1.DataSource({
     entities: [path.join(__dirname, '**', '*.entity.{ts,js}')],
     migrations: [path.join(__dirname, 'migrations', '*.{ts,js}')],
     migrationsTableName: 'typeorm_migrations',
+    migrationsTransactionMode: 'each',
 });
 //# sourceMappingURL=data-source.js.map

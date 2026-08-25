@@ -46,7 +46,7 @@ let ResellerService = class ResellerService {
         const commissionRate = reseller?.resellerCommissionRate != null
             ? Number(reseller.resellerCommissionRate)
             : 0;
-        const totalSoldQty = Math.max(Number(salesAgg?.totalSoldQty ?? 0) - Number(reseller?.paidTotalSoldQty ?? 0), 0);
+        const totalSoldQty = Math.max(Number(salesAgg?.totalSoldQty ?? 0), 0);
         const totalRevenue = Math.max(Number(salesAgg?.totalRevenue ?? 0) - Number(reseller?.paidTotalEarning ?? 0), 0);
         const totalCommission = (totalRevenue * commissionRate) / 100;
         const resellerNetEarning = totalRevenue - totalCommission;
@@ -297,7 +297,6 @@ let ResellerService = class ResellerService {
             .andWhere('product.companyId = :companyId', { companyId: saved.companyId })
             .getRawOne();
         await this.systemUserRepo.update({ id: saved.resellerId }, {
-            paidTotalSoldQty: Number(salesAgg?.totalSoldQty ?? 0),
             paidTotalEarning: Number(salesAgg?.totalRevenue ?? 0)
         });
         try {

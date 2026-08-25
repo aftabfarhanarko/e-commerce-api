@@ -111,7 +111,6 @@ export declare class SystemuserService implements OnModuleInit {
         permissions: string[];
         role: SystemUserRole;
         resellerCommissionRate?: number | null;
-        paidTotalSoldQty: number;
         paidTotalEarning: number;
         createdAt: Date;
         updatedAt: Date;
