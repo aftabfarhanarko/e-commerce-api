@@ -4,7 +4,7 @@ import { BannerService } from './banner.service';
 
 describe('BannerController', () => {
   let controller: BannerController;
-
+// iujwefhui9hqh9ufh98qwef
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [BannerController],
