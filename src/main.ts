@@ -49,6 +49,7 @@ if (!process.env.VERCEL) {
         await app.listen(port, '0.0.0.0');
         console.log(`🚀 Server is running on port: ${port}`);
     }
+    // qwiufh9uhf9
     startLocalServer();
 }
 

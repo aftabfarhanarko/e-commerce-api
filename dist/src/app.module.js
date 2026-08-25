@@ -51,12 +51,6 @@ const reseller_module_1 = require("./reseller/reseller.module");
 const cash_module_1 = require("./cash/cash.module");
 const top_products_module_1 = require("./top-products/top-products.module");
 const voice_module_1 = require("./voice/voice.module");
-const _1679999999999_AddSubdomainEnabledToSystemUser_1 = require("./migrations/1679999999999-AddSubdomainEnabledToSystemUser");
-const _1739180000000_CustomDomainAutoVerification_1 = require("./migrations/1739180000000-CustomDomainAutoVerification");
-const _1744000000000_AddPendingStatusToProducts_1 = require("./migrations/1744000000000-AddPendingStatusToProducts");
-const _1771259405000_FixUserEmailUniqueConstraint_1 = require("./migrations/1771259405000-FixUserEmailUniqueConstraint");
-const _1775562076955_addPaidFields_1 = require("./migrations/1775562076955-addPaidFields");
-const _1775570000000_EnsurePaidFieldsOnSystemUsers_1 = require("./migrations/1775570000000-EnsurePaidFieldsOnSystemUsers");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -74,21 +68,14 @@ exports.AppModule = AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 url: process.env.DATABASE_URL,
-                synchronize: false,
+                synchronize: true,
                 logging: false,
                 ssl: {
                     rejectUnauthorized: false,
                 },
                 autoLoadEntities: true,
-                migrations: [
-                    _1679999999999_AddSubdomainEnabledToSystemUser_1.AddSubdomainEnabledToSystemUser1679999999999,
-                    _1739180000000_CustomDomainAutoVerification_1.CustomDomainAutoVerification1739180000000,
-                    _1744000000000_AddPendingStatusToProducts_1.AddPendingStatusToProducts1744000000000,
-                    _1771259405000_FixUserEmailUniqueConstraint_1.FixUserEmailUniqueConstraint1771259405000,
-                    _1775562076955_addPaidFields_1.AddPaidFields1775562076955,
-                    _1775570000000_EnsurePaidFieldsOnSystemUsers_1.EnsurePaidFieldsOnSystemUsers1775570000000,
-                ],
-                migrationsRun: true,
+                migrations: [],
+                migrationsRun: false,
                 migrationsTransactionMode: 'each',
             }),
             typeorm_1.TypeOrmModule.forFeature([systemuser_entity_1.SystemUser]),
