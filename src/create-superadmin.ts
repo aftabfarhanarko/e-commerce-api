@@ -14,9 +14,9 @@ async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
   const superadminService = app.get(SuperadminService);
 
-  const email = 'ashikurovi23@gmail.com';
-  const name = 'Ashikur Ovi';
-  const password = '123456';
+  const email = 'aftabfarhan324@gmail.com';
+  const name = 'Aftab Farhan';
+  const password = 'SuperAdminPassword123!';
 
   console.log(`Attempting to create superadmin: ${email}`);
 
