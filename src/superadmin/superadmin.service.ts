@@ -174,6 +174,13 @@ export class SuperadminService {
     return safe;
   }
 
+  async findByEmail(email: string) {
+    return this.superadminRepo
+      .createQueryBuilder('superadmin')
+      .where('LOWER(superadmin.email) = LOWER(:email)', { email: email.trim() })
+      .getOne();
+  }
+
   async findAll() {
     const list = await this.superadminRepo.find({ 
       order: { id: 'DESC' },

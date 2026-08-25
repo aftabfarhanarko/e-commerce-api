@@ -170,6 +170,12 @@ let SuperadminService = class SuperadminService {
         const { passwordHash, passwordSalt, ...safe } = entity;
         return safe;
     }
+    async findByEmail(email) {
+        return this.superadminRepo
+            .createQueryBuilder('superadmin')
+            .where('LOWER(superadmin.email) = LOWER(:email)', { email: email.trim() })
+            .getOne();
+    }
     async findAll() {
         const list = await this.superadminRepo.find({
             order: { id: 'DESC' },

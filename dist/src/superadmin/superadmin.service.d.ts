@@ -11,6 +11,7 @@ export declare class SuperadminService {
     constructor(superadminRepo: Repository<SuperAdmin>, jwtService: JwtService, mailer: Transporter);
     private hashPassword;
     create(dto: CreateSuperadminDto): Promise<any>;
+    findByEmail(email: string): Promise<SuperAdmin>;
     findAll(): Promise<{
         id: number;
         name: string;
